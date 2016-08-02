@@ -52,6 +52,4 @@ build-iPhoneSimulator/
 .lein-repl-history
 .nrepl-port
 blog.iml
-project.clj
-src/
 target/
