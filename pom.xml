@@ -13,9 +13,16 @@
         </repository>
 
         <repository>
-            <id>clojars.org</id>
-            <url>http://clojars.org/repo</url>
+            <id>central</id>
+            <url>http://lbp0200-maven.daoapp.io/maven2</url>
         </repository>
+
+        <repository>
+            <id>clojars.org</id>
+            <url>http://lbp0200-maven.daoapp.io/repo</url>
+        </repository>
+
+
     </repositories>
 
     <dependencies>
