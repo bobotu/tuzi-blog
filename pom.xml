@@ -11,6 +11,11 @@
             <name>LeanCloud</name>
             <url>http://mvn.leancloud.cn/nexus/content/repositories/</url>
         </repository>
+
+        <repository>
+            <id>clojars.org</id>
+            <url>http://clojars.org/repo</url>
+        </repository>
     </repositories>
 
     <dependencies>
