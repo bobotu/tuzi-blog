@@ -25,6 +25,11 @@
             <version>1.8.0</version>
         </dependency>
         <dependency>
+            <groupId>com.offbytwo.iclojure</groupId>
+            <artifactId>iclojure</artifactId>
+            <version>[1.1.0,)</version>
+        </dependency>
+        <dependency>
             <groupId>ring</groupId>
             <artifactId>ring</artifactId>
             <version>1.5.0</version>
@@ -33,6 +38,11 @@
             <groupId>compojure</groupId>
             <artifactId>compojure</artifactId>
             <version>1.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>medley</groupId>
+            <artifactId>medley</artifactId>
+            <version>0.8.2</version>
         </dependency>
         <dependency>
             <groupId>cn.leancloud</groupId>
@@ -70,6 +80,8 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.16.v20140903</version>
                 <configuration>
+                    <stopKey>foo</stopKey>
+                    <stopPort>9696</stopPort>
                     <webAppConfig>
                         <extraClassPath>
                             src/main/resources,src/main/clojure

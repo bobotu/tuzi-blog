@@ -7,7 +7,6 @@
 
 (defroutes
   my-blog
-  (GET "/" [] "<h1>Hello World</h1>")
-  (ANY "*" [] "<h1>Hello World 1</h1>"))
+  (ANY "*" [] "<h1>Hello World</h1>"))
 
 (defservice my-blog)
