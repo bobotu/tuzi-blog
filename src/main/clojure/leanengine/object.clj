@@ -1,13 +1,16 @@
 (ns leanengine.object
   "对 leancloud 云引擎的简单封装"
-  (:import (com.avos.avoscloud AVObject AVSaveOption))
-  (:use [leanengine.base]))
+  (:import (com.avos.avoscloud AVObject AVSaveOption AVQuery AVRelation)
+           (java.lang IllegalArgumentException))
+  (:use [leanengine.base])
+  (:require [clojure.data.json :as json]))
 
 (defn- handle-value
   "将数据中所有的 sym 和 keyword 转化成 string
    转化后除了 map 之外的 coll 均变为 seq"
   [v]
   (cond
+    (instance? AVObject v) v
     (or (keyword? v) (symbol? v)) (name v)
     (string? v) v
     (map? v) (apply hash-map (mapcat handle-value v))
@@ -35,7 +38,7 @@
 (defn- put-kv
   [avos-object k v]
   (cond
-    (= :flatten-avos-object k)
+    (= :flatten-object k)
     (save-map-flatten avos-object v)
     :else
     (save-key-value avos-object k v)))
@@ -44,35 +47,68 @@
   [^String class-name]
   ^AVObject (AVObject. class-name))
 
-(defn save-avos-object
+(defn put-object
   "提供 avos-object [bidings]
    bindings 形式为 [key1 value1 key2 value2] 或者是 一个 map
    key 需为 string
    value 可为 set map list set string vec sym keyword
    value 中所有的 sym keyword 均化为 string
    除了 map 之外的 coll 均变为 seq
-   如 key 为 :flatten-avos-object value 为 map 则将 map 的 key value 展开存入 avos-object (只展开一层)
-   末尾可用 :save-option ^AVSaveOption option 绑定条件存储"
+   如 key 为 :flatten-object value 为 map 则将 map 的 key value 展开存入 avos-object (只展开一层)"
   [^AVObject avos-object bindings]
-  (when (map? bindings) (recur avos-object (mapcat vec bindings)))
-  (loop [seq (apply list bindings)]
-    (let [[^String k v opt option] seq]
-      (cond
-        (= opt :save-option)
-        (do
-          (put-kv avos-object k v)
-          (avos-try
-            (.save avos-object ^AVSaveOption option)
-            (.getObjectId avos-object)))
-        (and (nil? opt) (nil? option))
-        (do
-          (put-kv avos-object k v)
-          (avos-try
-            (.save avos-object)
-            (.getObjectId avos-object)))
-        (not-any? nil? [k v opt option])
-        (do
-          (put-kv avos-object k v)
-          (recur (drop 2 seq)))
-        :else
-        (throw "保存DSL绑定错误!")))))
+  (if (map? bindings)
+    (save-map-flatten avos-object bindings)
+    (loop [bindings bindings]
+      (if-let [seq (seq bindings)]
+        (let [[^String k v] seq]
+          (cond
+            (not-any? nil? [k v])
+            (do
+              (put-kv avos-object k v)
+              (recur (drop 2 seq)))
+            :else
+            (throw (IllegalArgumentException. "保存DSL绑定错误!"))))
+        avos-object))))
+
+(defn add-relation
+  [^AVObject parent ^String name & objects]
+  (let [^AVRelation relation (.getRelation parent name)]
+    (doseq [^AVObject object objects] (.add relation object)))
+  parent)
+
+(defn save-object
+  ([^AVObject object]
+   (doto object (.save)))
+  ([^AVObject object options]
+   (if-let [options (apply hash-map options)]
+     (do
+       (when-let [{fetch? :fetch} options]
+         (.setFetchWhenSave object fetch?))
+       (if-let [{^AVQuery query :query} options]
+         (doto object (.save (.query (AVSaveOption.) query)))
+         (doto object (.save)))
+       ))))
+
+(defn save-objects
+  [& objs]
+  (AVObject/saveAll objs)
+  objs)
+
+(defn get-slot
+  "获取 leancloud 数据行中的数据"
+  [^AVObject object bindings]
+  (loop [bindings bindings result (transient {})]
+    (if-let [seq (seq bindings)]
+      (let [[k type] seq]
+        (cond
+          (= :str type)
+          (recur (drop 2 seq) (assoc! result (keyword k) (.getString object k)))
+          (= :num type)
+          (recur (drop 2 seq) (assoc! result (keyword k) (.getInt object k)))
+          (= :map type)
+          (recur (drop 2 seq) (assoc! result (keyword k) (json/read-str (.toString (.getJSONObject object k)))))
+          (= :seq type)
+          (recur (drop 2 seq) (assoc! result (keyword k) (json/read-str (.toString (.getJSONArray object k)))))
+          (= :object-id type)
+          (recur (drop 2 seq) (assoc! result (keyword k) (.getObjectId object)))))
+      (persistent! result))))

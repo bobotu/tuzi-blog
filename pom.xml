@@ -13,16 +13,9 @@
         </repository>
 
         <repository>
-            <id>central</id>
-            <url>http://lbp0200-maven.daoapp.io/maven2</url>
-        </repository>
-
-        <repository>
             <id>clojars.org</id>
-            <url>http://lbp0200-maven.daoapp.io/repo</url>
+            <url>http://clojars.org/repo</url>
         </repository>
-
-
     </repositories>
 
     <dependencies>
@@ -50,6 +43,11 @@
             <groupId>medley</groupId>
             <artifactId>medley</artifactId>
             <version>0.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.clojure</groupId>
+            <artifactId>data.json</artifactId>
+            <version>0.2.6</version>
         </dependency>
         <dependency>
             <groupId>cn.leancloud</groupId>
