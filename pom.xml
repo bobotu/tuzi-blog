@@ -25,9 +25,9 @@
             <version>1.8.0</version>
         </dependency>
         <dependency>
-            <groupId>com.offbytwo.iclojure</groupId>
-            <artifactId>iclojure</artifactId>
-            <version>[1.1.0,)</version>
+            <groupId>reply</groupId>
+            <artifactId>reply</artifactId>
+            <version>0.3.7</version>
         </dependency>
         <dependency>
             <groupId>ring</groupId>

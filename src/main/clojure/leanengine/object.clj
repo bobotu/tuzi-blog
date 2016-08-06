@@ -1,7 +1,8 @@
 (ns leanengine.object
   "对 leancloud 云引擎的简单封装"
   (:import (com.avos.avoscloud AVObject AVSaveOption AVQuery AVRelation)
-           (java.lang IllegalArgumentException))
+           (java.lang IllegalArgumentException)
+           (java.text SimpleDateFormat))
   (:use [leanengine.base])
   (:require [clojure.data.json :as json]))
 
@@ -44,8 +45,10 @@
     (save-key-value avos-object k v)))
 
 (defn avos-object
-  [^String class-name]
-  ^AVObject (AVObject. class-name))
+  ([^String class-name]
+   ^AVObject (AVObject. class-name))
+  ([^String class-name ^String id]
+   ^AVObject (AVObject/createWithoutData class-name id)))
 
 (defn put-object
   "提供 avos-object [bidings]
@@ -76,6 +79,12 @@
     (doseq [^AVObject object objects] (.add relation object)))
   parent)
 
+(defn remove-relation
+  [^AVObject parent ^String name & objects]
+  (let [^AVRelation relation (.getRelation parent name)]
+    (doseq [^AVObject object objects] (.remove relation object)))
+  parent)
+
 (defn save-object
   ([^AVObject object]
    (doto object (.save)))
@@ -90,7 +99,7 @@
        ))))
 
 (defn save-objects
-  [& objs]
+  [objs]
   (AVObject/saveAll objs)
   objs)
 
@@ -110,5 +119,7 @@
           (= :seq type)
           (recur (drop 2 seq) (assoc! result (keyword k) (json/read-str (.toString (.getJSONArray object k)))))
           (= :object-id type)
-          (recur (drop 2 seq) (assoc! result (keyword k) (.getObjectId object)))))
+          (recur (drop 2 seq) (assoc! result (keyword k) (.getObjectId object)))
+          (= :date type)
+          (recur (drop 2 seq) (assoc! result (keyword k) (.format (SimpleDateFormat. "yyyy-MM-dd HH:mm:ss") (.getCreatedAt object))))))
       (persistent! result))))

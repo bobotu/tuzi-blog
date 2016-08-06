@@ -5,5 +5,6 @@
 (defn save-avos-file
   [^String name ^bytes byte]
   ((future
-     (doto (AVFile. name byte))
-     (.save))))
+     (doto
+       (AVFile. name byte)
+       (.save)))))

@@ -7,7 +7,6 @@
   [^String class-name]
   (AVQuery. class-name))
 
-
 ;生成代码的宏
 ;(def ^:private rel-bindings
 ;  {

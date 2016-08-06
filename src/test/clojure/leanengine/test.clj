@@ -64,8 +64,8 @@
     (put-object obj1 ["hello" "world1" "number" 2])
     (put-object obj2 ["hello" "world2" "number" 3])
     (put-object obj3 ["hello" "world3" "number" 6])
-    (save-objects obj1 obj2 obj3)
-    (add-relation parent "testRealation" obj1 obj2 obj3)
+    (save-objects [obj1 obj2 obj3])
+    (add-relation parent "testRealation" obj1 obj2 obj3 obj3)
     (put-object parent ["haha" "xixi"])
     (is (save-object parent))
     (let [p (query-find (relation-query parent "testRealation"))]
