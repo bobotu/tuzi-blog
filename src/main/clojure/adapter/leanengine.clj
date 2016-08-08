@@ -12,13 +12,15 @@
             ["title" :str
              "date" :date
              "content" :str
-             "tag" :seq
+             "tags" :seq
              "id" :object-id]))
 
 (defn write-post
   "将 post 转化为数据格式"
   [post]
-  (let [object (if (contains? post :id) (avos-object "Post" (:id post)) (avos-object "Post"))]
+  (let [object (if (contains? post :id)
+                 (avos-object "Post" (:id post))
+                 (avos-object "Post"))]
     (-> object
         (put-object ["title" (:title post)
                      "content" (:content post)
@@ -39,6 +41,7 @@
                    (add-relation t "posts" post)
                    (-> (avos-object "Tag")
                        (put-object ["name" tag])
+                       (inc-field "count")
                        (save-object)
                        (add-relation "posts" post)))))))
 
@@ -68,15 +71,31 @@
   []
   (->> (avos-query "Tag")
        (query-find)
-       (map #(-> (get-slot % ["name" :str])
-                 (assoc :count (query-count (relation-query % "posts")))))))
+       (map #(-> (get-slot % ["name" :str "count" :num])))))
 
 (defn get-tag-posts-list
   [^String tag-name skip limit]
   (->> (-> (avos-query "Tag")
            (query-object ["name" := tag-name])
-           (query-order [:desc "createdAt"])
            (query-find))
        (map #(relation-query % "posts"))
-       (mapcat query-find)
-       (map read-post)))
+       (mapcat #(get-posts-list % skip limit))))
+
+(defn get-post-by-id
+  [^String id]
+  (-> (.get ^AVQuery (avos-query "Post") id)
+      (read-post)))
+
+(defn posts-count
+  []
+  (-> (avos-query "Post")
+      (query-count)))
+
+(defn tag-posts-count
+  [tag-name]
+  (-> (avos-query "Tag")
+      (query-object ["name" := tag-name])
+      (query-find)
+      ((partial map #(get-slot % ["count" :num])))
+      (first)
+      (:count)))

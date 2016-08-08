@@ -73,6 +73,14 @@
             (throw (IllegalArgumentException. "保存DSL绑定错误!"))))
         avos-object))))
 
+(defn inc-field
+  ([^AVObject object ^String field] (inc-field object field 1))
+  ([^AVObject object ^String field ^Number num] (.increment object field num)))
+
+(defn dec-field
+  ([^AVObject object ^String field] (dec-field object field 1))
+  ([^AVObject object ^String field ^Number num] (.increment object field (- num))))
+
 (defn add-relation
   [^AVObject parent ^String name & objects]
   (let [^AVRelation relation (.getRelation parent name)]

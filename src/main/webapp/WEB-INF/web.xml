@@ -6,6 +6,7 @@
     <servlet>
         <servlet-name>blog</servlet-name>
         <servlet-class>blog.core</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>blog</servlet-name>
@@ -15,5 +16,6 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.js</url-pattern>
         <url-pattern>*.css</url-pattern>
+        <url-pattern>*.ico</url-pattern>
     </servlet-mapping>
 </web-app>

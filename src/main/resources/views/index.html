@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="cmn-Hans">
 <head>
     <meta charset="UTF-8">
     <title>Tuzi's Blog</title>
@@ -10,7 +10,7 @@
     {% include "side-bar.html"%}
     <div class="post-list">
         {% for post in posts %}
-           {% include "blog-list.html"%}
+        {% include "blog-list.html"%}
         {% endfor %}
         <div class="navigation-bar">
             <a href="/index/{{prev}}" class="navigator" style="visibility: {{prev|nav-out-of-range?}}">上一页</a>

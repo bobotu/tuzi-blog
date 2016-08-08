@@ -4,7 +4,8 @@
 
 (defn init-avos
   [^String app-id ^String app-key ^String master-key]
-  (AVOSCloud/initialize app-id app-key master-key))
+  (AVOSCloud/initialize app-id app-key master-key)
+  (AVOSCloud/useAVCloudCN))
 
 (def ^:private error-fields
   (->> (.getFields AVException)
