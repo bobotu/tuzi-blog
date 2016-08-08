@@ -45,6 +45,11 @@
             <version>0.8.2</version>
         </dependency>
         <dependency>
+            <groupId>selmer</groupId>
+            <artifactId>selmer</artifactId>
+            <version>1.0.7</version>
+        </dependency>
+        <dependency>
             <groupId>org.clojure</groupId>
             <artifactId>data.json</artifactId>
             <version>0.2.6</version>
@@ -58,6 +63,11 @@
 
     <build>
         <sourceDirectory>src/main</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>com.theoryinpractise</groupId>
@@ -87,11 +97,6 @@
                 <configuration>
                     <stopKey>foo</stopKey>
                     <stopPort>9696</stopPort>
-                    <webAppConfig>
-                        <extraClassPath>
-                            src/main/resources,src/main/clojure
-                        </extraClassPath>
-                    </webAppConfig>
                     <reload>manual</reload>
                 </configuration>
             </plugin>

@@ -1,0 +1,18 @@
+<div class="post-list-post">
+    <div class="list-post-info">
+        <a class="list-post-link" href="/post/{{post.id}}">
+            <h2 class="list-post-title">{{post.title}}</h2>
+        </a>
+        <span class="list-post-date">{{post.date}}</span>
+    </div>
+    <div class="list-post-tags">
+        {% for tag in post.tags %}
+        <div class="list-post-tag">
+            <a href="/tag/{{tag}}/1">{{tag}}</a>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="list-post-link" href="/post/{{post.id}}">
+        <p class="list-post-summary">{{post.summary}}</p>
+    </a>
+</div>
