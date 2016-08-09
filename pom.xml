@@ -78,7 +78,7 @@
             <version>0.2.6</version>
         </dependency>
         <dependency>
-            <groupId>cn.leancloud</groupId>
+            <groupId>cn.leancloud.java</groupId>
             <artifactId>java-sdk</artifactId>
             <version>0.1.0</version>
         </dependency>
