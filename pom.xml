@@ -9,7 +9,7 @@
         <repository>
             <id>leancloud</id>
             <name>LeanCloud</name>
-            <url>http://mvn.leancloud.cn/nexus/content/repositories/</url>
+            <url>http://mvn.leancloud.cn/nexus/content/repositories/releases</url>
         </repository>
 
         <repository>
@@ -79,7 +79,7 @@
         </dependency>
         <dependency>
             <groupId>cn.leancloud</groupId>
-            <artifactId>leanengine</artifactId>
+            <artifactId>Java-sdk</artifactId>
             <version>0.1.0</version>
         </dependency>
     </dependencies>
