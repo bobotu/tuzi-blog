@@ -79,7 +79,7 @@
         </dependency>
         <dependency>
             <groupId>cn.leancloud</groupId>
-            <artifactId>Java-sdk</artifactId>
+            <artifactId>java-sdk</artifactId>
             <version>0.1.0</version>
         </dependency>
     </dependencies>
