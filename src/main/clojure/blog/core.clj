@@ -24,7 +24,11 @@
 (dorun (map #(add-filter! (keyword (str "section-select-" % "?")) (partial section-selected-index %)) (range 1 4)))
 (init-avos)
 
-()
+(dorun (map #(println % " : " (System/getenv %)) ["LEANCLOUD_APP_ID"
+                                                    "LEANCLOUD_APP_ENV"
+                                                    "LEANCLOUD_APP_KEY"
+                                                    "LEANCLOUD_APP_MASTER_KEY"
+                                                    "LEANCLOUD_APP_PORT"]))
 
 (defn- get-avatar
   [data]
