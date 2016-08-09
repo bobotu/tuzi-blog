@@ -22,13 +22,14 @@
 (add-filter! :nav-out-of-range? (fn [index] (if (>= 0 index) "hidden" "visible")))
 (add-filter! :url-decode (fn [code] (codec/url-decode code)))
 (dorun (map #(add-filter! (keyword (str "section-select-" % "?")) (partial section-selected-index %)) (range 1 4)))
-(init-avos)
 
 (dorun (map #(println % " : " (System/getenv %)) ["LEANCLOUD_APP_ID"
                                                     "LEANCLOUD_APP_ENV"
                                                     "LEANCLOUD_APP_KEY"
                                                     "LEANCLOUD_APP_MASTER_KEY"
                                                     "LEANCLOUD_APP_PORT"]))
+
+(init-avos)
 
 (defn- get-avatar
   [data]
