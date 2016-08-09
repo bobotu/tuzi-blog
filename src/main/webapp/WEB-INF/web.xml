@@ -8,6 +8,9 @@
         <servlet-class>blog.core</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <listener>
+        <listener-class>blog.init</listener-class>
+    </listener>
     <servlet-mapping>
         <servlet-name>blog</servlet-name>
         <url-pattern>/</url-pattern>

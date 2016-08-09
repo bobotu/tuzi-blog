@@ -24,8 +24,6 @@
 (add-filter! :url-decode (fn [code] (codec/url-decode code)))
 (dorun (map #(add-filter! (keyword (str "section-select-" % "?")) (partial section-selected-index %)) (range 1 4)))
 
-(init-avos)
-
 (defn- get-avatar
   [data]
   (assoc data :avatar "http://ac-qlbfmmkg.clouddn.com/62204347ffcbe999.JPG"))
