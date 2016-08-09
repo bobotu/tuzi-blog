@@ -22,10 +22,9 @@
 (add-filter! :nav-out-of-range? (fn [index] (if (>= 0 index) "hidden" "visible")))
 (add-filter! :url-decode (fn [code] (codec/url-decode code)))
 (dorun (map #(add-filter! (keyword (str "section-select-" % "?")) (partial section-selected-index %)) (range 1 4)))
-(init-avos
-  "qLbFMmKGA4KW18gopi88gTxe-gzGzoHsz"
-  "wWJGHMNLMwy5SnANaurrUdh8"
-  "yRKW7uTJHTgzKVRfmPcWvddE")
+(init-avos)
+
+()
 
 (defn- get-avatar
   [data]

@@ -1,10 +1,14 @@
 (ns leanengine.base
   (:import (com.avos.avoscloud AVOSCloud AVException)
-           (java.lang.reflect Field)))
+           (java.lang.reflect Field)
+           (cn.leancloud LeanEngine)))
 
 (defn init-avos
-  [^String app-id ^String app-key ^String master-key]
-  (AVOSCloud/initialize app-id app-key master-key)
+  []
+  (LeanEngine/initialize
+    (System/getenv "LEANCLOUD_APP_ID")
+    (System/getenv "LEANCLOUD_APP_KEY")
+    (System/getenv "LEANCLOUD_APP_MASTER_KEY"))
   (AVOSCloud/useAVCloudCN))
 
 (def ^:private error-fields
