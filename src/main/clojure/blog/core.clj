@@ -10,7 +10,8 @@
     [blog.util]
     [medley.core]
     [adapter.leanengine]
-    [leanengine.base])
+    [leanengine.base]
+    [clojure.tools.logging])
   (:gen-class
     :extends javax.servlet.http.HttpServlet))
 
@@ -23,7 +24,7 @@
 (add-filter! :url-decode (fn [code] (codec/url-decode code)))
 (dorun (map #(add-filter! (keyword (str "section-select-" % "?")) (partial section-selected-index %)) (range 1 4)))
 
-(dorun (map #(println % " : " (System/getenv %)) ["LEANCLOUD_APP_ID"
+(dorun (map #(error % " : " (System/getenv %)) ["LEANCLOUD_APP_ID"
                                                     "LEANCLOUD_APP_ENV"
                                                     "LEANCLOUD_APP_KEY"
                                                     "LEANCLOUD_APP_MASTER_KEY"
