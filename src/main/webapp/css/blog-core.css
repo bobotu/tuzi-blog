@@ -248,7 +248,7 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    font-size: 0.75em;
     border-bottom: 1px groove rgba(83, 83, 83, 0.2);
 }
 

@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>Tuzi</title>
-    <link rel="stylesheet" href="/css/blog-core.css">
-</head>
-<body>
-<div class="index-container">
-    {% include "side-bar.html"%}
-    <div class="about-container">
-        <h1>Zejun.Li</h1>
-        <p>会一些 Ruby (并不使用 ROR)</p>
-        <p>Clojure 入门 (这个 Blog 就是第一个 Clojure 练习)</p>
-        <p>还是苦逼的大二学生...</p>
-    </div>
+{% extends "base.html" %}
+{% block content %}
+<div class="about-container">
+    <h1>Zejun.Li</h1>
+    <p>会一些 Ruby (并不使用 ROR)</p>
+    <p>Clojure 入门 (这个 Blog 就是第一个 Clojure 练习)</p>
+    <p>还是苦逼的大二学生...</p>
 </div>
-</body>
-</html>
+{% endblock %}

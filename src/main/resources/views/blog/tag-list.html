@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>Tuzi's Blog</title>
-    <link rel="stylesheet" href="/css/blog-core.css">
-</head>
-<body>
-<div class="index-container">
-    {% include "side-bar.html"%}
-    <div class="tags-list">
-        {% for tag in tags %}
-            <a class="tag-list-tag" href="/tag/{{tag.name}}/1">
-                <div class="list-tag-background"></div>
-                <h4 class="list-tag-info">
-                    {{tag.name}}     共 {{tag.count}} 篇
-                </h4>
-            </a>
-        {% endfor %}
-    </div>
+{% extends "base.html" %}
+{% block content %}
+<div class="tags-list">
+    {% for tag in tags %}
+    <a class="tag-list-tag" href="/tag/{{tag.name}}/1">
+        <div class="list-tag-background"></div>
+        <h4 class="list-tag-info">
+            {{tag.name}}     共 {{tag.count}} 篇
+        </h4>
+    </a>
+    {% endfor %}
 </div>
-</body>
-</html>
+{% endblock %}

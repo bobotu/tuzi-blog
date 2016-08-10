@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>Tuzi's Blog</title>
-    <link rel="stylesheet" href="/css/blog-core.css">
-</head>
-<body>
-<div class="index-container">
-    {% include "side-bar.html"%}
-    <div class="post-list">
-        {% for post in posts %}
-        {% include "blog-list.html"%}
-        {% endfor %}
-        <div class="navigation-bar">
-            <a href="/index/{{prev}}" class="navigator" style="visibility: {{prev|nav-out-of-range?}}">上一页</a>
-            <a href="/index/{{next}}" class="navigator" style="visibility: {{next|nav-out-of-range?}}">下一页</a>
-        </div>
+{% extends "base.html" %}
+{% block content %}
+<div class="post-list">
+    {% for post in posts %}
+    {% include "blog-list.html"%}
+    {% endfor %}
+    <div class="navigation-bar">
+        <a href="/index/{{prev}}" class="navigator" style="visibility: {{prev|nav-out-of-range?}}">上一页</a>
+        <a href="/index/{{next}}" class="navigator" style="visibility: {{next|nav-out-of-range?}}">下一页</a>
     </div>
 </div>
-</body>
-</html>
+{% endblock %}
