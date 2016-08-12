@@ -44,8 +44,6 @@ html, body {
     text-align: center;
     letter-spacing: 2em;
     text-indent: 2em;
-
-    position: relative;
 }
 
 .side-bar .sections .section:hover {
@@ -154,7 +152,7 @@ html, body {
 
 .post-list-post .list-post-tag *,
 .post-detail .detail-post-tag * {
-    font-size: 0.7em;
+    font-size: 0.9em;
     font-weight: 200;
     text-decoration: none;
     color: #000000;
@@ -165,6 +163,10 @@ html, body {
 .post-detail .detail-post-tag *:visited {
     text-decoration: none;
     color: #000000;
+}
+
+.post-detail .detail-post-content * {
+    max-width: 100%;
 }
 
 .post-list-post .list-post-summary {

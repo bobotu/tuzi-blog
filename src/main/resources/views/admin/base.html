@@ -2,14 +2,16 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>Tuzi's Blog</title>
+    <title>Tuzi's Blog Admin</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="/css/blog-core.css">
+    {% block css %} {% endblock %}
+    <link rel="stylesheet" href="/css/blog-admin.css">
 </head>
 <body>
 <div class="index-container">
-    {% include "blog/side-bar.html"%}
-    {% block content %} {% endblock %}
+{% block content %} {% endblock %}
 </div>
+
+{% block script %} {% endblock %}
 </body>
 </html>

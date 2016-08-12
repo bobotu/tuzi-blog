@@ -2,15 +2,14 @@
   (:use
     [ring.util.servlet :only (defservice)]
     [compojure.core]
+    [compojure.coercions]
     [selmer.parser]
     [selmer.filters]
     [clojure.java.io]
     [ring.util.response]
     [ring.util.codec :as codec]
     [blog.util]
-    [medley.core]
     [adapter.leanengine]
-    [leanengine.base]
     [clojure.tools.logging])
   (:gen-class
     :extends javax.servlet.http.HttpServlet))
@@ -19,90 +18,71 @@
   [set-index index]
   (if (= set-index index) "selected" ""))
 
-(set-resource-path! (resource "views/blog"))
+(set-resource-path! (resource "views"))
 (add-filter! :nav-out-of-range? (fn [index] (if (>= 0 index) "hidden" "visible")))
 (add-filter! :url-decode (fn [code] (codec/url-decode code)))
 (dorun (map #(add-filter! (keyword (str "section-select-" % "?")) (partial section-selected-index %)) (range 1 4)))
 
 (defn- get-avatar
   [data]
-  (assoc data :avatar "http://ac-qlbfmmkg.clouddn.com/62204347ffcbe999.JPG"))
-
-(defn- render-404
-  []
-  (-> (render-file "404.html" {})
-      (response)
-      (status 404)
-      (content-type "text/html; charset=utf-8")))
+  (assoc data :avatar "https://dn-qlbfmmkg.qbox.me/62204347ffcbe999.JPG"))
 
 (def ^:const list-size 6)
 
 (defroutes
   my-blog
   (GET "/" [] (redirect "/index/1"))
-  (GET "/index/:p" [p]
-    (let [p (Long/parseLong p)
-          posts-data (get-posts-list (* (- p 1) list-size) list-size)
+  (GET "/index/:p" [p :<< as-int]
+    (let [posts-data (get-posts-list (* (- p 1) list-size) list-size)
           count (posts-count)]
-      (if (empty? posts-data)
-        (render-404)
+      (when-not (empty? posts-data)
         (-> {:posts posts-data}
-            (post-list-summary)
+            (handle-summary :posts)
             (get-avatar)
             (navigator-index p count list-size)
             (select-section 1)
-            (#(render-file "index.html" %))
-            (response)
-            (content-type "text/html; charset=utf-8")))))
+            (#(render-file "blog/index.html" %))))))
 
   (GET "/tags" []
     (let [tags-data (all-tags)]
       (-> {:tags tags-data}
           (get-avatar)
           (select-section 2)
-          (#(render-file "tag-list.html" %))
-          (response)
-          (content-type "text/html; charset=utf-8"))))
+          (#(render-file "blog/tag-list.html" %)))))
 
   (GET "/tag/:tag" [tag]
     (redirect (str "/tag/" (url-encode tag) "/1")))
 
-  (GET "/tag/:tag/:p" [tag p]
-    (let [p (Long/parseLong p)
-          posts-data (get-tag-posts-list tag (* (- p 1) list-size) list-size)
+  (GET "/tag/:tag/:p" [tag p :<< as-int]
+    (let [posts-data (get-tag-posts-list tag (* (- p 1) list-size) list-size)
           count (tag-posts-count tag)]
-      (if (empty? posts-data)
-        (render-404)
+      (when-not (empty? posts-data)
         (-> {:posts posts-data
              :name  tag
              :count count}
             (get-avatar)
-            (post-list-summary)
+            (handle-summary :posts)
             (navigator-index p count list-size)
             (select-section 2)
-            (#(render-file "tag-detail.html" %))
-            (response)
-            (content-type "text/html; charset=utf-8")))))
+            (#(render-file "blog/tag-detail.html" %))))))
 
   (GET "/post/:id" [id]
     (let [post-data (get-post-by-id id)]
-      (if (empty? post-data)
-        (render-404)
+      (when-not (empty? post-data)
         (-> {:post post-data}
             (get-avatar)
             (select-section 1)
-            (#(render-file "post-detail.html" %))
-            (response)
-            (content-type "text/html; charset=utf-8")))))
+            (#(render-file "blog/post-detail.html" %))))))
 
   (GET "/about" []
     (-> {}
         (get-avatar)
         (select-section 3)
-        (#(render-file "about.html" %))
-        (response)
-        (content-type "text/html; charset=utf-8")))
+        (#(render-file "blog/about.html" %))))
 
-  (ANY "*" [] (render-404)))
+  (ANY "*" [] (-> (render-file "404.html" {})
+                  (response)
+                  (status 404)
+                  (content-type "text/html; charset=utf-8"))))
 
 (defservice my-blog)

@@ -1,0 +1,21 @@
+<div class="post-list-post">
+    <div class="list-post-info">
+        <a class="list-post-link" href="/admin/edit/{{draft.id}}">
+            <h2 class="list-post-title">{{draft.title|default-if-empty:空白文章}}</h2>
+        </a>
+        {% if draft.changed %}
+            <span class="change-tip">有修改</span>
+        {% endif %}
+        <span class="list-post-date">写于 {{draft.date}}</span>
+    </div>
+    <div class="list-post-tags">
+        {% for tag in draft.tags %}
+        <div class="list-post-tag">
+            <span>{{tag}}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="list-post-link" href="/admin/edit/{{draft.id}}">
+        <p class="list-post-summary">{{draft.summary|default-if-empty:空白文章}}</p>
+    </a>
+</div>

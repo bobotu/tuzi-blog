@@ -1,0 +1,230 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.index-container {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+}
+
+.login-form label {
+    align-self: flex-start;
+    margin: 10px;
+}
+
+.login-form #username, .login-form #password {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    height: 34px;
+    padding: 6px 10px;
+    font-size: 14px;
+    color: #555;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    box-shadow: none;
+    background: #fafafa;
+
+    transition: all .2s ease, border .2s ease, opacity .2s ease, color .2s ease;
+}
+
+.login-form #username:focus, .login-form #password:focus {
+    box-shadow: 0 0 0 3px rgba(48, 144, 228, .1);
+    background-color: #fff;
+    border-color: #3090e4;
+    outline: 0;
+}
+
+.login-form #submit {
+    color: #333;
+    background-image: linear-gradient(to bottom, #fff 0, #f5f5f5 100%);
+    border: 1px solid #d0d0d0;
+    outline: none;
+    margin: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
+
+.login-form #submit:active {
+    background-color: #f5f5f5;
+    background-image: none;
+}
+
+.login-form #submit:hover {
+    color: rgba(48, 144, 228, 1.0);
+}
+
+.side-bar {
+    height: 100%;
+    flex: 0 0 100px;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(95deg, rgba(43, 43, 43, 0.9), rgba(43, 43, 43, 0.8));
+}
+
+.side-bar .section {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+    padding: 16px 0 16px 0;
+    width: 100%;
+    text-align: center;
+    letter-spacing: 10px;
+    text-indent: 10px;
+}
+
+.side-bar .sections {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+
+.side-bar .section:hover {
+    background-color: rgba(43, 43, 43, 0.5);
+}
+
+#logout, #logout:visited {
+    margin-top: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #d0d0d0;
+    font-size: 0.6em;
+}
+
+.post-list {
+    overflow-y: scroll;
+    flex: 1;
+}
+
+.post-list-post {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    margin-left: 30px;
+    border-bottom: 1px groove rgba(83, 83, 83, 0.2);
+}
+
+.post-list-post .list-post-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-bottom: 5px;
+}
+
+.post-list-post .list-post-title {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.post-list-post .list-post-date {
+    margin: 8px 20px 0 0;
+    font-size: 9pt;
+
+    align-self: flex-end;
+}
+
+.post-list-post .list-post-tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-left: 17px;
+}
+
+.post-list-post .list-post-tag {
+    background-color: rgba(232, 191, 106, 0.7);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.post-list-post .list-post-link {
+    text-decoration: none;
+    color: #000000;
+}
+
+.post-list-post .list-post-link:visited {
+    text-decoration: none;
+    color: rgba(102, 102, 102, 1.0);
+}
+
+.post-list-post .list-post-tag * {
+    font-size: 0.9em;
+    font-weight: 200;
+    text-decoration: none;
+    color: #000000;
+    margin: 3px;
+}
+
+.post-list-post .list-post-tag *:visited {
+    text-decoration: none;
+    color: #000000;
+}
+
+.post-list-post .list-post-summary {
+    padding-left: 4px;
+    padding-right: 10px;
+    word-spacing: 0.1em;
+    line-height: 1.35em;
+}
+
+.navigation-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.navigation-bar :last-child {
+    border-left: 1px groove rgba(83, 83, 83, 0.2);
+}
+
+.navigator {
+    flex: 1;
+    text-align: center;
+    color: #000000;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+}
+
+.navigator :visited {
+    color: #000000;
+}
+
+.post-list-post .change-tip {
+    align-self: flex-end;
+    background-color: rgba(232, 191, 106, 0.7);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    margin-right: 20px;
+}

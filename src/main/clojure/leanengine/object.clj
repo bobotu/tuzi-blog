@@ -74,12 +74,18 @@
         avos-object))))
 
 (defn inc-field
-  ([^AVObject object ^String field] (inc-field object field 1))
-  ([^AVObject object ^String field ^Number num] (.increment object field num)))
+  ([^AVObject object ^String field]
+   (inc-field object field 1))
+  ([^AVObject object ^String field ^Number num]
+   (.increment object field num)
+   object))
 
 (defn dec-field
-  ([^AVObject object ^String field] (dec-field object field 1))
-  ([^AVObject object ^String field ^Number num] (.increment object field (- num))))
+  ([^AVObject object ^String field]
+   (dec-field object field 1))
+  ([^AVObject object ^String field ^Number num]
+   (.increment object field (- num))
+   object))
 
 (defn add-relation
   [^AVObject parent ^String name & objects]
@@ -92,6 +98,11 @@
   (let [^AVRelation relation (.getRelation parent name)]
     (doseq [^AVObject object objects] (.remove relation object)))
   parent)
+
+(defn array-add
+  [^AVObject obj ^String field object]
+  (.addUnique obj field object)
+  obj)
 
 (defn save-object
   ([^AVObject object]
@@ -122,6 +133,8 @@
           (recur (drop 2 seq) (assoc! result (keyword k) (.getString object k)))
           (= :num type)
           (recur (drop 2 seq) (assoc! result (keyword k) (.getInt object k)))
+          (= :bool type)
+          (recur (drop 2 seq) (assoc! result (keyword k) (.getBoolean object k)))
           (= :map type)
           (recur (drop 2 seq) (assoc! result (keyword k) (json/read-str (.toString (.getJSONObject object k)))))
           (= :seq type)

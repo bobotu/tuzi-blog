@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% block content %}
+{% include "admin/side-bar.html" %}
+<div class="post-list">
+    {% for draft in drafts %}
+    {% include "admin/drafts-list.html"%}
+    {% endfor %}
+    <div class="navigation-bar">
+        <a href="/admin/list/{{prev}}" class="navigator" style="visibility: {{prev|nav-out-of-range?}}">上一页</a>
+        <a href="/admin/list/{{next}}" class="navigator" style="visibility: {{next|nav-out-of-range?}}">下一页</a>
+    </div>
+</div>
+{% endblock %}

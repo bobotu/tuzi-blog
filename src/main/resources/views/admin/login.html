@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<div class="login-form">
+    <div>{{ tip|default:"" }}</div>
+    <form method="post" class="login-form" action="/admin/login" enctype="application/x-www-form-urlencoded">
+        <label for="username">用户名</label>
+        <input id="username" type="text" name="username">
+        <label for="password">密码</label>
+        <input id="password" type="password" name="password">
+        <input id="submit" type="submit" value="登录">
+    </form>
+</div>
+{% endblock %}

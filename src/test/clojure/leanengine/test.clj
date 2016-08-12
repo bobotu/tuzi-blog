@@ -3,7 +3,7 @@
         leanengine.base
         leanengine.query
         clojure.test)
-  (:import (com.avos.avoscloud AVObject AVQuery)))
+  (:import (com.avos.avoscloud AVObject AVQuery AVOSCloud)))
 
 (deftest
   handle-value-test
@@ -18,10 +18,10 @@
 
 (deftest
   leancloud-init-test
-  (init-avos
-    "qLbFMmKGA4KW18gopi88gTxe-gzGzoHsz"
-    "wWJGHMNLMwy5SnANaurrUdh8"
-    "yRKW7uTJHTgzKVRfmPcWvddE"))
+  (AVOSCloud/initialize
+    (System/getenv "LEANCLOUD_APP_ID")
+    (System/getenv "LEANCLOUD_APP_KEY")
+    (System/getenv "LEANCLOUD_APP_MASTER_KEY")))
 
 (deftest-
   prepare-test

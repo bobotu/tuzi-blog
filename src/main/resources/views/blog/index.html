@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "blog/base.html" %}
 {% block content %}
 <div class="post-list">
     {% for post in posts %}
-    {% include "blog-list.html"%}
+    {% include "blog/blog-list.html"%}
     {% endfor %}
     <div class="navigation-bar">
         <a href="/index/{{prev}}" class="navigator" style="visibility: {{prev|nav-out-of-range?}}">上一页</a>

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "blog/base.html" %}
 {% block content %}
 <div class="post-list">
     <div class="tag-info">
@@ -6,7 +6,7 @@
         <h3 class="tag-post-count">总计 {{count}} 篇</h3>
     </div>
     {% for post in posts %}
-    {% include "blog-list.html"%}
+    {% include "blog/blog-list.html"%}
     {% endfor %}
     <div class="navigation-bar">
         <a href="/tag/{{name}}/{{prev}}" class="navigator" style="visibility: {{prev|nav-out-of-range?}}">上一页</a>

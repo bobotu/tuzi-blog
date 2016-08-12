@@ -1,0 +1,59 @@
+{% extends "admin/base.html" %}
+
+{% block css %}
+<link href="//cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/highlight.js/9.5.0/styles/github.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/editor.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% include "admin/side-bar.html" %}
+<div class="editor">
+    <input id="post-title" type="text">
+    <textarea id="post-editor"></textarea>
+</div>
+<div class="editor-tools-bar">
+    <button id="draft-save" class="editor-tools-bar-button">保存草稿</button>
+    <button id="post-save" class="editor-tools-bar-button">正式发布</button>
+    <button id="tag-manage" class="editor-tools-bar-button">管理TAG</button>
+    <button id="img-manage" class="editor-tools-bar-button">管理图片</button>
+</div>
+<div id="editor-tag-manage-panel" class="editor-tools-panel">
+    <div class="editor-dialog">
+        <i class="fa fa-lg fa-times editor-dialog-close" aria-hidden="true"></i>
+        <div class="editor-tag-area"></div>
+        <div class="input-group">
+            <input id="tag-input" class="editor-tag-new">
+            <button class="editor-tag-submit editor-tools-bar-button">添加</button>
+        </div>
+    </div>
+</div>
+<div id="img-manage-panel" class="editor-tools-panel">
+    <div class="editor-dialog">
+        <i class="fa fa-lg fa-times editor-dialog-close" aria-hidden="true"></i>
+        <div class="img-list"></div>
+        <div class="input-group">
+            <input id="img-input" type="file" style="display: none">
+            <label for="img-input" class="file-upload-label">
+                <i class="fa fa-2x fa-file-image-o" aria-hidden="true"></i>
+            </label>
+            <button class="editor-tag-submit editor-tools-bar-button">上传</button>
+        </div>
+    </div>
+</div>
+<div class="error-tip">
+    <p></p>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="//cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+{% safe %}
+<script type="text/javascript">
+    window.editorInfo = {{ draft-info|default:{} }}
+</script>
+{% endsafe %}
+<script type="text/javascript" src="/js/editor.js"></script>
+{% endblock %}

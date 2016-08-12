@@ -1,9 +1,13 @@
 (ns blog.util
-  (:use adapter.leanengine))
+  (:use adapter.leanengine
+        compojure.core)
+  (:import org.jsoup.Jsoup))
 
-(defn post-summary
-  [post]
-  (assoc post :summary (:content post)))
+(defn- parse-summary
+  [data]
+  (assoc data :summary (->> (.text (Jsoup/parse (:content data)))
+                            (take 300)
+                            (apply str))))
 
 (defn replace-in
   [coll in f]
@@ -11,9 +15,9 @@
        (map f)
        (assoc-in coll in)))
 
-(defn post-list-summary
-  [posts]
-  (replace-in posts [:posts] post-summary))
+(defn handle-summary
+  [data path]
+  (replace-in data [path] parse-summary))
 
 (defn navigator-index
   [data p max list-size]
@@ -22,3 +26,8 @@
 (defn select-section
   [data index]
   (assoc data :section-select index))
+
+(defn wrap-check-logedin
+  [handler]
+  (fn [request]
+    ))

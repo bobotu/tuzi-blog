@@ -1,0 +1,240 @@
+#post-editor {
+    display: none;
+}
+
+a {
+    outline: none;
+}
+
+.CodeMirror, .CodeMirror-scroll {
+    height: 100%;
+    min-height: 0;
+    flex-grow: 0;
+}
+
+.CodeMirror-fullscreen.CodeMirror {
+    max-height: none;
+}
+
+.CodeMirror-fullscreen .CodeMirror-scroll {
+    max-height: none;
+}
+
+.editor {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex: 0 1 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch
+}
+
+.editor-tools-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.editor-tools-bar {
+    flex: 0 0 100px;
+    background: rgba(254, 254, 254, 1.0);
+}
+
+#post-title {
+    height: 50px;
+    outline: none;
+    border: solid 1px rgba(208, 208, 208, 1.0);
+    border-radius: 5px;
+    flex-shrink: 0;
+    font-size: 30px;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.editor-tools-bar-button {
+    height: 38px;
+    width: 65px;
+    outline: none;
+    border: 1px solid #d0d0d0;
+    margin: 20px 0 20px 0;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    background-image: linear-gradient(to bottom, #fff 0, #f5f5f5 100%);
+    border-radius: 5px;
+}
+
+.editor-tools-bar-button:active {
+    background-color: #f5f5f5;
+    background-image: none;
+}
+
+.error-tip {
+    visibility: hidden;
+    background-color: rgb(255, 97, 93);
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    height: 40px;
+    width: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.editor-tools-panel {
+    z-index: 9999;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+}
+
+.editor-dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(254, 254, 254, 1.0);
+    border-radius: 5px;
+}
+
+.editor-dialog-close {
+    align-self: flex-end;
+    margin: 10px 10px 0 0;
+}
+
+.editor-dialog-close:hover {
+    cursor: pointer;
+}
+
+.editor-tag-area {
+    width: 500px;
+    height: 200px;
+    background: #FFF;
+    overflow: scroll;
+    margin: 10px;
+    border-radius: 5px;
+    border: solid 1px #d0d0d0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.editor-tag-new {
+    outline: none;
+    border: solid 1px rgba(208, 208, 208, 1.0);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin: 10px;
+    text-align: left;
+    width: 280px;
+    height: 34px;
+    padding: 0 5px 0 5px;
+    font-size: 15px;
+}
+
+.editor-tag-submit {
+    height: 30px;
+    width: 40px;
+}
+
+.editor-tag {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+
+    background-color: rgba(232, 191, 106, 0.7);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.editor-tag .tag-name {
+    padding-right: 5px;
+    margin-right: 5px;
+    border-right: solid 1px #000000;
+}
+
+.editor-tag i:hover {
+    cursor: pointer;
+}
+
+.file-upload-label:hover {
+    cursor: pointer;
+}
+
+#img-manage-panel .input-group {
+    flex-direction: column;
+}
+
+#img-manage-panel .editor-tag-submit {
+    margin: 5px 0 5px 0;
+}
+
+#img-manage-panel .img-list {
+    height: 500px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 10px 20px 0 20px;
+    border: solid 1px #d0d0d0;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+#img-manage-panel .img-list .img-list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: solid 1px #d0d0d0;
+}
+
+#img-manage-panel .img-list img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+}
+
+#img-manage-panel .img-list input {
+    outline: none;
+    display: flex;
+    flex: 1;
+    height: 40px;
+    font-size: 17px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: solid 1px #d0d0d0;
+}
+
+#img-manage-panel .img-list-item .fa {
+    margin-left: 5px;
+}
