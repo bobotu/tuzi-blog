@@ -31,7 +31,7 @@
 
 (defroutes
   my-blog
-  (GET "/" [] (redirect "/index/1"))
+  (GET "/" [] (redirect "/index/1" 301))
   (GET "/index/:p" [p :<< as-int]
     (let [posts-data (get-posts-list (* (- p 1) list-size) list-size)
           count (posts-count)]
@@ -51,7 +51,7 @@
           (#(render-file "blog/tag-list.html" %)))))
 
   (GET "/tag/:tag" [tag]
-    (redirect (str "/tag/" (url-encode tag) "/1")))
+    (redirect (str "/tag/" (url-encode tag) "/1") 301))
 
   (GET "/tag/:tag/:p" [tag p :<< as-int]
     (let [posts-data (get-tag-posts-list tag (* (- p 1) list-size) list-size)

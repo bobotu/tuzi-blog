@@ -28,7 +28,7 @@
   [handler]
   (fn [request]
     (if (nil? (AVUser/getCurrentUser))
-      (redirect "/admin/login")
+      (redirect "/admin/login" 301)
       (handler request))))
 
 (defmacro check-login
@@ -41,7 +41,7 @@
   my-blog-admin
   (context "/admin" []
 
-    (-> (GET "/" [] (redirect "/admin/list/1"))
+    (-> (GET "/" [] (redirect "/admin/list/1" 301))
         (wrap-routes wrap-login))
 
     (GET "/login" []
@@ -54,14 +54,14 @@
               (render-file "admin/login.html" {:tip "帐号密码没填吧?"}))
             (try
               (AVUser/logIn ^String username ^String password)
-              (redirect "/admin/")
+              (redirect "/admin/" 301)
               (catch AVException e
                 (render-file "admin/login.html" {:tip (.getMessage e)})))))
         (wrap-routes wrap-params))
 
     (GET "/logout" []
       (AVUser/logOut)
-      (redirect "/admin/login"))
+      (redirect "/admin/login" 301))
 
     (-> (GET "/new" []
           (render-file "admin/editor.html" {}))
