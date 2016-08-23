@@ -80,6 +80,11 @@
         (select-section 3)
         (#(render-file "blog/about.html" %))))
 
+  (POST "/try" [code]
+    (if (= code "2713")
+      (status 200 (response "haha"))
+      (status 400 (response "fuck"))))
+
   (ANY "*" [] (-> (render-file "404.html" {})
                   (response)
                   (status 404)
